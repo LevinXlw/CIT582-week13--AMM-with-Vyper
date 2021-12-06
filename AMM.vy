@@ -38,13 +38,12 @@ def provideLiquidity(tokenA_addr: address, tokenB_addr: address, tokenA_quantity
 @external
 def tradeTokens(sell_token: address, sell_quantity: uint256):
 	assert sell_token == self.tokenA.address or sell_token == self.tokenB.address
-	amount_A: uint256 = self.tokenAQty 	
-	amount_B: uint256 = self.tokenBQty
+
 
 	if sell_token == self.tokenA.address:
 
-		amount_A = self.tokenAQty + sell_quantity
-		amount_B = self.invariant / amount_A 
+		amount_A: uint256 = self.tokenAQty + sell_quantity
+		amount_B: uint256 = self.invariant / amount_A 
 		transfer_amount_B: uint256 = self.tokenBQty - amount_B
 
 		self.tokenA.transferFrom(msg.sender, self, sell_quantity)
@@ -52,8 +51,8 @@ def tradeTokens(sell_token: address, sell_quantity: uint256):
 
 	if sell_token == self.tokenB.address:
 
-		amount_B = self.tokenAQty + sell_quantity
-		amount_A = self.invariant / amount_B 
+		amount_B: uint256 = self.tokenAQty + sell_quantity
+		amount_A: uint256 = self.invariant / amount_B 
 
 		transfer_amount_A: uint256 = self.tokenAQty - amount_A
 

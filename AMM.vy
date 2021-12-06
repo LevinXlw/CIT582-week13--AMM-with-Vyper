@@ -38,8 +38,8 @@ def provideLiquidity(tokenA_addr: address, tokenB_addr: address, tokenA_quantity
 @external
 def tradeTokens(sell_token: address, sell_quantity: uint256):
 	assert sell_token == self.tokenA.address or sell_token == self.tokenB.address
-	A_amount: uint256 	
-	B_amount: uint256 
+	A_amount: uint256 = self.tokenAQty 	
+	B_amount: uint256 = self.tokenBQty
 	if sell_token == self.tokenA.address:
 
 		A_amount = self.tokenAQty + sell_quantity

@@ -38,30 +38,30 @@ def provideLiquidity(tokenA_addr: address, tokenB_addr: address, tokenA_quantity
 @external
 def tradeTokens(sell_token: address, sell_quantity: uint256):
 	assert sell_token == self.tokenA.address or sell_token == self.tokenB.address
-	A_amount: uint256 = self.tokenAQty 	
-	B_amount: uint256 = self.tokenBQty
+	amount_A: uint256 = self.tokenAQty 	
+	amount_B: uint256 = self.tokenBQty
 
 	if sell_token == self.tokenA.address:
 
-		A_amount = self.tokenAQty + sell_quantity
-		B_amount = self.invariant / A_amount 
-		transfer_amount: uint256 = self.tokenBQty - B_amount
+		amount_A = self.tokenAQty + sell_quantity
+		amount_B = self.invariant / amount_A 
+		transfer_amount: uint256 = self.tokenBQty - amount_B
 
 		self.tokenA.transferFrom(msg.sender, self, sell_quantity)
 		self.tokenB.transfer(msg.sender, transfer_amount)
 
 	if sell_token == self.tokenB.address:
 
-		B_amount = self.tokenAQty + sell_quantity
-		A_amount = self.invariant / B_amount 
+		amount_B = self.tokenAQty + sell_quantity
+		amount_A = self.invariant / amount_B 
 
-		transfer_amount: uint256 = self.tokenBQty - B_amount
+		transfer_amount: uint256 = self.tokenBQty - amount_A
 
 		self.tokenB.transferFrom(msg.sender, self, sell_quantity)
 		self.tokenA.transfer(msg.sender, transfer_amount)
 
-	self.tokenAQty = A_amount
-	self.tokenBQty = B_amount
+	self.tokenAQty = amount_A
+	self.tokenBQty = amount_B
 	
 # Owner can withdraw their funds and destroy the market maker
 @external

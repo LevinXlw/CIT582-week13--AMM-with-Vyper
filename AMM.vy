@@ -53,9 +53,9 @@ def tradeTokens(sell_token: address, sell_quantity: uint256):
 
 
 
-	else:
+	if sell_token == self.tokenB.address:
 
-		amount_B = self.tokenAQty + sell_quantity
+		amount_B = self.tokenBQty + sell_quantity
 		amount_A = self.invariant / amount_B 
 
 		transfer_amount_A: uint256 = self.tokenAQty - amount_A
